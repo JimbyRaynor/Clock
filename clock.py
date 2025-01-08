@@ -62,6 +62,9 @@ year = now.year
 month = now.month
 currentday = now.day
 
+def totalminutes(mytime):
+    hours, minutes = map(int, mytime.split(":"))
+    return 60*hours+minutes
 
 
 def draw_sun(canvas, x, y, radius):
@@ -95,6 +98,20 @@ sunrisetext = canvas1.create_text(40,300,font=fontsmall,text=sunrise_times[day_o
 sunsettext = canvas1.create_text(380,300,font=fontsmall,text=sunset_times[day_of_year(today)-1],fill="#9090FF")
 
 
+minsunrise = totalminutes(sunrise_times[day_of_year(today)-1])
+minsunset =  totalminutes(sunset_times[day_of_year(today)-1])
+suntime = minsunset-minsunrise
+
+highsunhour = (minsunrise+minsunset)/2 // 60
+highsunmin = (minsunrise+minsunset)/2 % 60
+
+highsunstring = f"{int(highsunhour):02}:{int(highsunmin):02}"
+
+canvas1.create_text(200,300,font=fontsmall,text=highsunstring,fill="#9090FF")
+
+
+
+
 next_month = (now+timedelta(days=calendar.monthrange(year,month)[1])).month
 next_month_name = (now+timedelta(days=calendar.monthrange(year,month)[1])).strftime("%B")
 num_days = calendar.monthrange(year,month)[1]
@@ -107,6 +124,7 @@ def str0(num):
     else:
         return str(num) 
 
+
 def makecalendartext():
     month_name = now.strftime("%B")
     calt = " "+month_name+"\n"
@@ -117,22 +135,31 @@ def makecalendartext():
     for day in range(1,num_days+1):
         if day < currentday:
             calt = calt + " XX"
+            partial = calt
         else:
             calt = calt + " " + str0(day)
+            partial = partial + "   "
         if (first_weekday+day) % 7 == 0:
             calt = calt + "\n"
+            partial = partial + "\n"
     calt = calt + "\n\n"+" "+next_month_name+"\n"
     calt = calt+  " M  T  W  T  F  S  S\n"
+    partial = partial + "\n\n"+" "+next_month_name+"\n"
+    partial = partial+  " M  T  W  T  F  S  S\n"
     next_first_weekday = calendar.monthrange(year,next_month)[0]
     for i in range(next_first_weekday):
         calt = calt + "   "
+        partial = partial + "   "
     for day in range(1,next_num_days+1):
         calt = calt + " " + str0(day)
+        partial = partial + "   "
         if (next_first_weekday+day) % 7 == 0:
             calt = calt + "\n"
-    return calt
+            partial = partial + "\n"
+    return calt,partial
 
-canvas1.create_text(520,160,font=fonttiny,text=makecalendartext(),justify="left",fill="#AAAAAA")
+canvas1.create_text(520,160,font=fonttiny,text=makecalendartext()[0],justify="left",fill="yellow")
+canvas1.create_text(520,160,font=fonttiny,text=makecalendartext()[1],justify="left",fill="#AAAAAA")
    
 
 def timer1():
@@ -159,8 +186,8 @@ def timersun():
     t = localtime()
     mymin = t.tm_min
     myhour = t.tm_hour
-    minloc = myhour*60+mymin-60*6
-    minscale = 400*minloc/(14*60)
+    minloc = myhour*60+mymin-minsunrise
+    minscale = 400*minloc/suntime
     drawtimersun(minscale)
     mainwin.after(600000,timersun)
 
