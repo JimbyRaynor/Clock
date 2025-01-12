@@ -66,33 +66,19 @@ def totalminutes(mytime):
     hours, minutes = map(int, mytime.split(":"))
     return 60*hours+minutes
 
+sundrawn = False
+mypic = 0
 
 def draw_sun(canvas, x, y, radius):
-    canvas.create_oval(x - radius, y - radius, x + radius, y + radius, fill="yellow", outline="")
-    # Eyes
-    eye_radius = radius // 5
-    canvas.create_oval(x - eye_radius*2, y - eye_radius, x - eye_radius, y, fill="black")
-    canvas.create_oval(x + eye_radius, y - eye_radius, x + eye_radius*2, y, fill="black")
-    # Smile
-    canvas.create_arc(x - eye_radius*2, y, x + eye_radius*2, y + eye_radius*2, start=0, extent=-180, style=ARC)
+    global mypic
+    mypic = canvas.create_oval(x - radius, y - radius, x + radius, y + radius, fill="yellow", outline="")
 
-
-def draw_sleepy_sun(canvas, x, y, radius):
-    canvas.create_oval(x - radius, y - radius, x + radius, y + radius, fill="yellow", outline="")
-    # Sleepy eyes
-    eye_radius = radius // 5
-    canvas.create_arc(x - eye_radius*2, y - eye_radius, x - eye_radius, y, start=0, extent=-180, style=ARC)
-    canvas.create_arc(x + eye_radius, y - eye_radius, x + eye_radius*2, y, start=0, extent=-180, style=ARC)
-    # Sleepy mouth
-    canvas.create_arc(x - eye_radius*2, y+8, x + eye_radius*2, y + eye_radius*2+8, start=0, extent=180, style=ARC)
+def draw_sungrey(canvas, x, y, radius):
+    canvas.create_oval(x - radius, y - radius, x + radius, y + radius, fill="grey", outline="")
 
 def drawarrow(canvas,x1,y1,x2,y2):
     canvas.create_line(x1, y1, x2, y2, arrow=LAST, fill="yellow")
 
-#draw_sun(canvas1, 28, 300, 20)
-#draw_sleepy_sun(canvas1, 400, 265, 20)
-drawarrow(canvas1,40,290,60,260)
-drawarrow(canvas1,380,260,400,290)
 
 sunrisetext = canvas1.create_text(40,300,font=fontsmall,text=sunrise_times[day_of_year(today)-1],fill="#9090FF")
 sunsettext = canvas1.create_text(380,300,font=fontsmall,text=sunset_times[day_of_year(today)-1],fill="#9090FF")
@@ -178,7 +164,12 @@ def timer1():
     mainwin.after(100,timer1)
 
 def drawtimersun(x):
+    global sundrawn, mypic
     y = 100*math.sin(x/400*math.pi)
+    if sundrawn == True:
+        canvas1.delete(mypic)
+        draw_sungrey(canvas1, x, 320-y, 1)
+    sundrawn = True
     draw_sun(canvas1, x, 320-y, 10)
     
 
