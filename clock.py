@@ -1,11 +1,5 @@
 
 
-# Please give me a Python list of sunrise times for Melbourne, 
-# Australia, for Jan 2025 using data from the "time and date" website
-
-# Can only do month by month, o/w crash
-# ask for data from "Time and Date website", o/w slightly inaccurate
-
 
 sunrise_times = [
     "06:01", "06:02", "06:03", "06:04", "06:04", "06:05", "06:06", "06:07",
@@ -55,8 +49,8 @@ from time import *
 from datetime import datetime, timedelta
 import calendar
 mainwin = Tk()
-mainwin.geometry("640x320+1+1") # x=1, y=1
-canvas1 = Canvas(mainwin,width=640,height= 320,bg="black")
+mainwin.geometry("640x340+1+1") # x=1, y=1
+canvas1 = Canvas(mainwin,width=640,height= 340,bg="black")
 canvas1.place(x=0,y=0)
 fonttiny = ("Courier",11)
 fontbig = ("Arial",70)
@@ -130,7 +124,8 @@ def makecalendartext():
     calt = calt+  " M  T  W  T  F  S  S\n"
     first_weekday = calendar.monthrange(year,month)[0]
     for i in range(first_weekday):
-        calt = calt + "   "
+        calt    = calt    + "   "
+    partial = calt
     for day in range(1,num_days+1):
         if day < currentday:
             calt = calt + " XX"
@@ -157,8 +152,8 @@ def makecalendartext():
             partial = partial + "\n"
     return calt,partial
 
-canvas1.create_text(520,160,font=fonttiny,text=makecalendartext()[0],justify="left",fill="yellow")
-canvas1.create_text(520,160,font=fonttiny,text=makecalendartext()[1],justify="left",fill="#AAAAAA")
+canvas1.create_text(520,170,font=fonttiny,text=makecalendartext()[0],justify="left",fill="yellow")
+canvas1.create_text(520,170,font=fonttiny,text=makecalendartext()[1],justify="left",fill="#AAAAAA")
    
 
 def timer1():
