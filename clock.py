@@ -49,13 +49,15 @@ from time import *
 from datetime import datetime, timedelta
 import calendar
 mainwin = Tk()
-mainwin.geometry("640x340+1+1") # x=1, y=1
-canvas1 = Canvas(mainwin,width=640,height= 340,bg="black")
+mainwin.geometry("640x346+1+1") # x=1, y=1
+canvas1 = Canvas(mainwin,width=640,height= 346,bg="black")
 canvas1.place(x=0,y=0)
-fonttiny = ("Courier",11)
+
 fontbig = ("Arial",70)
 fontmedium = ("Arial",45)
 fontsmall = ("Arial",24)
+fonttiny = ("Courier",11)
+fonttiny2 = ("Arial",18)
 mydaytext = canvas1.create_text(200,40,font=fontmedium,text="day",fill="yellow")
 mytext = canvas1.create_text(200,110,font=fontbig,text="time",fill="#9090FF")
 mydaytext2 = canvas1.create_text(200,180,font=fontsmall,text="day",fill="yellow")
@@ -97,10 +99,15 @@ suntime = minsunset-minsunrise
 
 highsunhour = (minsunrise+minsunset)/2 // 60
 highsunmin = (minsunrise+minsunset)/2 % 60
-
 highsunstring = f"{int(highsunhour):02}:{int(highsunmin):02}"
 
+daylengthhour = suntime // 60
+daylengthmin = suntime % 60
+daylengthstring = f"{int(daylengthhour):02}:{int(daylengthmin):02}"
+
+
 canvas1.create_text(200,300,font=fontsmall,text=highsunstring,fill="#9090FF")
+canvas1.create_text(200,330,font=fonttiny2,text="Day Length "+daylengthstring,fill="yellow")
 
 
 
