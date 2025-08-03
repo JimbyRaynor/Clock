@@ -52,7 +52,7 @@ def setAfternoon():
     if DayofWeek == "Thu":
        textbox1.insert(INSERT,"Clean solar panels\n")
 
-textbox1 = Text(mainwin,width=24,height=8,font=fonttiny,bg="black",fg="orange")
+textbox1 = Text(mainwin,width=26,height=8,font=fonttiny,bg="black",fg="orange")
 textbox1.place(x=0,y=0)
 canvas1 = Canvas(mainwin,width=220,height=330,bg="black")
 canvas1.place(x=380,y=0)
@@ -64,7 +64,7 @@ CPUusage2 = LEDlib.LEDtextobj(canvas1,x=70,y=7,text="%",colour="yellow", pixelsi
 
 ProcList = []
 for i in range(14):
-  Proc = LEDlib.LEDtextobj(canvas1,x=0,y=44+20*i,text=" ",colour="white", pixelsize =2, charwidth=14, solid = True)
+  Proc = LEDlib.LEDtextobj(canvas1,x=0,y=44+20*i,text=" ",colour="light blue", pixelsize =2, charwidth=14, solid = True)
   ProcList.append(Proc)
 
 def resetProcs():
@@ -85,14 +85,8 @@ def updateCpuUsage():
 def getTopProc(n=4):
    processes.clear()
    for proc in psutil.process_iter(['pid', 'name', 'cpu_percent']):
-      if "python" in proc.info['name']:
-         processes.append("python: "+str(proc.info['cpu_percent'])+"%")
-      elif proc.info['cpu_percent'] > 1.0:
+      if proc.info['cpu_percent'] > 0.4:
          processes.append(proc.info['name']+": "+str(proc.info['cpu_percent'])+"%")   
-   proctext = "Apps: \n"
-   for p in processes:
-      proctext = proctext+p+'\n'
-   return proctext
 
 updateCpuUsage()
 
