@@ -23,34 +23,40 @@ def add(mystring):
    Notes.append(mystring.upper())
 
 def addnotes():
-    if DayofWeek == "Fri":
-       add("Clean Microwave")
-    add("Open window 2 PM")
+    add("Open window 2PM")
     add("Backup to Github")
+    if DayofWeek == "Fri":
+       add("Washing")
+       add("Clean Microwave")
+       add("Dishwasher")
+       add("Fill water bottles")
     if DayofWeek == "Sat":
-       add("9AM Google meet call\n")
-       add("Backup Steam Deck to USB\n")
-       add("Clean Showers\n")
-       add("Wash Showerhead\n")
-       add("Empty tissue bins\n")
-       add("Nose/Ears\n")
-       add("Vacuuming\n")
-       add("Empty Recycling Bin\n")
-       add("Check garage roof\n")
-       add("Add sunrise/sunset dates to clock\n")
-       add("Clear roof spouting\n")
+       add("9AM Google meet call")
+       add("Backup Steam Deck to USB")
+       add("Clean Showers")
+       add("Wash Showerhead")
+       add("Empty tissue bins")
+       add("Nose/Ears")
+       add("Vacuuming")
+       add("Empty Recycling Bin")
+       add("Check garage roof")
+       add("Add sunrise/sunset dates to clock")
+       add("Clear roof spouting")
     if DayofWeek == "Tue":
-       add("Vacuuming\n")
-       add("Clean Floor\n")
+       add("Vacuuming")
+       add("Washing")
+       add("Dishwasher")
     if DayofWeek == "Sun" or DayofWeek == "Tue" or DayofWeek == "Thu":
-       add("Google Call\n")
-       add("Distribute Exercise Sheets\n")
+       add("Google Call")
+       add("Distribute Exercise Sheets")
     if DayofWeek == "Sun":
-       add("Advertise Computing Lecture\n")
-       add("Vacuum behind heaters\n")
-       add("Put Rubbish Out\n")
+       add("Advertise Computing Lecture")
+       add("Vacuum behind heaters")
+       add("Put Rubbish Out")
     if DayofWeek == "Thu":
-       add("Clean solar panels\n")
+       add("Clean solar panels")
+       add("    only use water")
+       add("Clean Floor\n")
 
 
 canvas1 = Canvas(mainwin,width=220,height=330,bg="black")
