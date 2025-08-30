@@ -40,12 +40,13 @@ def addnotes():
        add("Vacuuming")
        add("Empty Recycling Bin")
        add("Check garage roof")
-       add("Add sunrise/sunset dates to clock")
+       add("Check work todo")
        add("Clear roof spouting")
     if DayofWeek == "Tue":
-       add("Vacuuming")
        add("Washing")
        add("Dishwasher")
+       add("Dryer")
+       add("Shave")
     if DayofWeek == "Sun" or DayofWeek == "Tue" or DayofWeek == "Thu":
        add("Google Call")
        add("Distribute Exercise Sheets")
@@ -56,7 +57,8 @@ def addnotes():
     if DayofWeek == "Thu":
        add("Clean solar panels")
        add("    only use water")
-       add("Clean Floor\n")
+       add("Clean Floor")
+    add("Night Design")
 
 
 canvas1 = Canvas(mainwin,width=220,height=330,bg="black")
@@ -108,12 +110,12 @@ def getTopProc(n=4):
          kworker = True
       if name.find("python") >= 0: 
          python = True
-         processes.append(name+": "+str(proc.info['cpu_percent'])+"%")
+         processes.append(name+":"+str(proc.info['cpu_percent'])+"%")
       if name.find("code") >= 0 and cpu > 0.4: 
          python = True
-         processes.append(name+": "+str(proc.info['cpu_percent'])+"%")
+         processes.append(name+":"+str(proc.info['cpu_percent'])+"%")
       if cpu > 0.9 and not python and not kworker and not code:
-         processes.append(name[1:10]+": "+str(proc.info['cpu_percent'])+"%") 
+         processes.append(name[1:10]+":"+str(proc.info['cpu_percent'])+"%") 
    processes.sort()  
 
 updateCpuUsage()
