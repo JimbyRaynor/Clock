@@ -49,7 +49,7 @@ sunrise_times = [
     #November sunrise
     "06:13", "06:12", "06:11", "06:10", "06:09", "06:08", "06:07", "06:06", "06:05", "06:04",
     "06:03", "06:02", "06:01", "06:00", "06:00", "05:59", "05:58", "05:57", "05:57", "05:56",
-    "05:56", "05:55", "05:54", "05:54", "05:54", "05:53", "05:53", "05:52", "05:52", "05:52"
+    "05:56", "05:55", "05:54", "05:54", "05:54", "05:53", "05:53", "05:52", "05:52", "05:52",
     #December sunrise
     "05:51", "05:51", "05:51", "05:51", "05:51", "05:51", "05:51", "05:51", "05:51", "05:51",
     "05:51", "05:51", "05:51", "05:51", "05:52", "05:52", "05:52", "05:53", "05:53", "05:53",
@@ -119,7 +119,7 @@ sunset_times = [
    # November sunset 
     "19:54", "19:55", "19:56", "19:57", "19:58", "20:00", "20:01", "20:02", "20:03", "20:04", 
     "20:05", "20:06", "20:07", "20:08", "20:09", "20:10", "20:12", "20:13", "20:14", "20:15",  
-    "20:16", "20:17", "20:18", "20:19", "20:20", "20:21", "20:22", "20:23", "20:24", "20:25"
+    "20:16", "20:17", "20:18", "20:19", "20:20", "20:21", "20:22", "20:23", "20:24", "20:25",
    # December sunset 
     "20:26", "20:27", "20:28", "20:29", "20:30", "20:31", "20:32", "20:32", "20:33", "20:34", 
     "20:35", "20:36", "20:36", "20:37", "20:38", "20:38", "20:39", "20:40", "20:40", "20:41",  
@@ -194,7 +194,7 @@ LEDpoints  = []
 
 
 mainwin = Tk()
-mainwin.geometry("640x346+1+1") # window is at x=1, y=1 on screen (top left)
+mainwin.geometry("640x346+1280+0") # window is at x=1, y=1 on screen (top left)
 canvas1 = Canvas(mainwin,width=640,height= 346,bg="black")
 canvas1.place(x=0,y=0)
 
@@ -264,7 +264,7 @@ def str0(num):
 
 def makecalendartext():
     month_name = now.strftime("%B")
-    calt = " "+month_name+"\n"
+    calt = " "+month_name+" "+str(year)+"\n"
     calt = calt+  " M  T  W  T  F  S  S\n"
     first_weekday = calendar.monthrange(year,month)[0]
     for i in range(first_weekday):
@@ -280,11 +280,14 @@ def makecalendartext():
         if (first_weekday+day) % 7 == 0:
             calt = calt + "\n"
             partial = partial + "\n"
-    calt = calt + "\n\n"+" "+next_month_name+"\n"
+    # next month calendar
+    nextmonthyear = year
+    if month == 12: nextmonthyear = year+1
+    calt = calt + "\n\n"+" "+next_month_name+" "+str(nextmonthyear)+"\n"
     calt = calt+  " M  T  W  T  F  S  S\n"
     partial = partial + "\n\n"+" "+next_month_name+"\n"
     partial = partial+  " M  T  W  T  F  S  S\n"
-    next_first_weekday = calendar.monthrange(year,next_month)[0]
+    next_first_weekday = calendar.monthrange(nextmonthyear,next_month)[0]
     for i in range(next_first_weekday):
         calt = calt + "   "
         partial = partial + "   "
